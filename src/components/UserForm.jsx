@@ -8,6 +8,7 @@ import Alert from "react-bootstrap/Alert";
 import InputGroup from "react-bootstrap/InputGroup";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import FormModal from "./FormModal";
+import OffCanvas from "./OffCanvas";
 import axios from "axios";
 
 const UserForm = () => {
@@ -86,8 +87,7 @@ const UserForm = () => {
           {error}
         </Alert>
       )}
-
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} noValidate validated={validated}>
         <Row>
           <Col md="5">
             <Form.Group controlId="formName" className="mb-3">
@@ -100,6 +100,9 @@ const UserForm = () => {
                 onChange={handleChange}
                 required
               />
+              <Form.Control.Feedback type="invalid">
+                Please provide a name
+              </Form.Control.Feedback>
             </Form.Group>
           </Col>
 
@@ -114,6 +117,9 @@ const UserForm = () => {
                 onChange={handleChange}
                 required
               />
+              <Form.Control.Feedback type="invalid">
+                Please provide an email
+              </Form.Control.Feedback>
             </InputGroup>
           </Col>
         </Row>
@@ -134,6 +140,9 @@ const UserForm = () => {
                 onChange={handleChange}
                 required
               />
+              <Form.Control.Feedback type="invalid">
+                Please provide a phone number
+              </Form.Control.Feedback>
             </FloatingLabel>
           </Col>
 
@@ -154,6 +163,9 @@ const UserForm = () => {
                 <option>Ice Cream</option>
                 <option>Other</option>
               </Form.Select>
+              <Form.Control.Feedback type="invalid">
+                Please select a food
+              </Form.Control.Feedback>
             </Form.Group>
           </Col>
         </Row>
@@ -178,12 +190,18 @@ const UserForm = () => {
             onChange={handleChange}
             required
           />
+          {validated && !formData.communication && (
+            <Form.Control.Feedback type="invalid" className="d-block">
+              Please select a communication method
+            </Form.Control.Feedback>
+          )}
         </Form.Group>
 
         <Button variant="primary" type="submit" className="mt-3">
           Submit
         </Button>
       </Form>
+      <OffCanvas />
     </Container>
   );
 };
